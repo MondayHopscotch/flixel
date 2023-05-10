@@ -576,7 +576,7 @@ class FlxTween implements IFlxDestroyable
 		ease = null;
 		manager = null;
 		_chainedTweens = null;
-		_nextTweenInChain = null;
+		// _nextTweenInChain = null;
 	}
 
 	/**
