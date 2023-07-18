@@ -1,6 +1,7 @@
 package flixel.graphics;
 
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.math.FlxMath;
 import flixel.system.FlxAssets;
 
 /**
@@ -61,9 +62,18 @@ class FlxAsepriteUtil
 	public static function addAseAtlasTags(sprite:FlxSprite, data:FlxAsepriteJsonAsset, tagSuffix:String = ":")
 	{
 		final aseData = data.getData();
+		var maxFrameIndex = 0;
 		for (frameTag in aseData.meta.frameTags)
-			sprite.animation.addByPrefix(frameTag.name, frameTag.name + tagSuffix);
+		{
+			maxFrameIndex = FlxMath.maxInt(maxFrameIndex, frameTag.to);
+			sprite.animation.add(frameTag.name, [for (i in frameTag.from...frameTag.to + 1) i]);
+		}
 		
+		if (maxFrameIndex >= sprite.frames.numFrames)
+		{
+			FlxG.log.warn('tag frame indices go beyond number of frames. Some animations may not be loaded correctly. Was atlas exported with "Ignore Empty"/--ignore-empty?');
+		}
+
 		return sprite;
 	}
 }
