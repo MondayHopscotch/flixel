@@ -40,11 +40,11 @@ class FlxAsepriteUtil
 	 * @see flixel.graphics.FlxAsepriteUtil.AseAtlasMeta
 	 * @since 5.4.0
 	 */
-	public static function loadAseAtlasAndTags(sprite:FlxSprite, graphic, data:FlxAsepriteJsonAsset, tagSuffix:String = ":")
+	public static function loadAseAtlasAndTags(sprite:FlxSprite, graphic, data:FlxAsepriteJsonAsset)
 	{
 		final aseData = data.getData();
 		loadAseAtlas(sprite, graphic, aseData);
-		return addAseAtlasTags(sprite, aseData, tagSuffix);
+		return addAseAtlasTags(sprite, aseData);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ class FlxAsepriteUtil
 	 * @see flixel.graphics.FlxAsepriteUtil.AseAtlasMeta
 	 * @since 5.4.0
 	 */
-	public static function addAseAtlasTags(sprite:FlxSprite, data:FlxAsepriteJsonAsset, tagSuffix:String = ":")
+	public static function addAseAtlasTags(sprite:FlxSprite, data:FlxAsepriteJsonAsset)
 	{
 		final aseData = data.getData();
 		var maxFrameIndex = 0;
