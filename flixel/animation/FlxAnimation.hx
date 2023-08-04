@@ -136,6 +136,10 @@ class FlxAnimation extends FlxBaseAnimation
 		paused = false;
 		_frameTimer = 0;
 		finished = frameDuration == 0;
+		if (Force)
+		{
+			finished = false;
+		}
 
 		var maxFrameIndex:Int = numFrames - 1;
 		if (Frame < 0)
@@ -217,11 +221,11 @@ class FlxAnimation extends FlxBaseAnimation
 				else
 					curFrame++;
 			}
-			
+
 			// prevents null ref when the sprite is destroyed on finishCallback (#2782)
 			if (finished)
 				break;
-			
+
 			curFrameDuration = getCurrentFrameDuration();
 		}
 	}
