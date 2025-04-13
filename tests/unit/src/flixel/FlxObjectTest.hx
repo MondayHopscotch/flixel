@@ -98,6 +98,39 @@ class FlxObjectTest extends FlxTest
 		Assert.isFalse(FlxG.overlap(object1, object2));
 		Assert.isTrue(object1.x > object2.x);
 	}
+
+	@Test
+	function testSeparateXEdging():Void
+	{
+		final object1 = new FlxObject(10.01, -.01, 10, 10);
+		final object2 = new FlxObject(0, 10, 10, 10);
+		
+		object1.setPosition(9.95, .05);
+		
+		Assert.areEqual(-.05, FlxObject.computeOverlapX(object1, object2));
+	}
+	
+	@Test
+	function testSeparateYEdging():Void
+	{
+		final object1 = new FlxObject(10.01, -.01, 10, 10);
+		final object2 = new FlxObject(0, 10, 10, 10);
+		
+		object1.setPosition(9.95, .05);
+		
+		Assert.areEqual(-.05, FlxObject.computeOverlapY(object1, object2));
+	}
+	
+	@Test
+	function testSeparateEdging():Void
+	{
+		final object1 = new FlxObject(10.01, -.01, 10, 10);
+		final object2 = new FlxObject(0, 10, 10, 10);
+		
+		object1.setPosition(9.95, .05);
+		
+		Assert.areEqual(true, FlxObject.separate(object1, object2));
+	}
 	
 	@Test
 	function testSeprateY():Void

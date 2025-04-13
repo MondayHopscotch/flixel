@@ -159,8 +159,8 @@ class FlxObject extends FlxBasic
 	 */
 	public static function separate(object1:FlxObject, object2:FlxObject):Bool
 	{
-		final separatedX = separateX(object1, object2);
 		final separatedY = separateY(object1, object2);
+		final separatedX = separateX(object1, object2);
 		return separatedX || separatedY;
 		
 		/*
@@ -400,6 +400,12 @@ class FlxObject extends FlxBasic
 		// Since we are not separating, always return any amount of overlap => false as last parameter
 		return computeOverlapY(object1, object2, false) != 0;
 	}
+
+	static function bigBounder(object:FlxObject):FlxRect
+	{
+		return FlxRect.get(Math.min(object.x, object.last.x), Math.min(object.y, object.last.y), object.width + Math.abs(object.x - object.last.x),
+			object.height + Math.abs(object.y - object.last.y));
+	}
 	
 	/**
 	 * Internal function that computes overlap among two objects on the X axis. It also updates the `touching` variable.
@@ -419,8 +425,8 @@ class FlxObject extends FlxBasic
 			final delta1Abs:Float = (delta1 > 0) ? delta1 : -delta1;
 			final delta2Abs:Float = (delta2 > 0) ? delta2 : -delta2;
 
-			final rect1 = FlxRect.get(object1.x - (delta1 > 0 ? delta1 : 0), object1.last.y, object1.width + delta1Abs, object1.height);
-			final rect2 = FlxRect.get(object2.x - (delta2 > 0 ? delta2 : 0), object2.last.y, object2.width + delta2Abs, object2.height);
+			final rect1 = bigBounder(object1);
+			final rect2 = bigBounder(object2);
 			
 			if (rect1.overlaps(rect2))
 			{
@@ -489,8 +495,8 @@ class FlxObject extends FlxBasic
 			final delta1Abs:Float = (delta1 > 0) ? delta1 : -delta1;
 			final delta2Abs:Float = (delta2 > 0) ? delta2 : -delta2;
 			
-			final rect1 = FlxRect.get(object1.last.x, object1.y - (delta1 > 0 ? delta1 : 0), object1.width, object1.height + delta1Abs);
-			final rect2 = FlxRect.get(object2.last.x, object2.y - (delta2 > 0 ? delta2 : 0), object2.width, object2.height + delta2Abs);
+			final rect1 = bigBounder(object1);
+			final rect2 = bigBounder(object2);
 
 			if (rect1.overlaps(rect2))
 			{
